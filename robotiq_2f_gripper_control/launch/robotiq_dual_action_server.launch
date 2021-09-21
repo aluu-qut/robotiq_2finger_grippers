@@ -19,10 +19,10 @@
     </include>
 
     <!-- RIGHT GRIPPER CLIENT -->
-    <node ns="green" pkg="robotiq_2f_gripper_control" type="robotiq_2f_action_client_example.py" 
+    <!-- <node ns="green" pkg="robotiq_2f_gripper_control" type="robotiq_2f_action_client_example.py" 
         name="robotiq_85_client" output="screen" if="$(arg run_test)">
         <param name="action_name" value="command_robotiq_action" />
-    </node>
+    </node> -->
 
      <!-- Launch action server for gripper -->
     <include ns="blue" file="$(find robotiq_2f_gripper_control)/launch/robotiq_action_server.launch">
@@ -36,9 +36,9 @@
     </include>
 
     <!-- LEFT GRIPPER CLIENT -->
-    <node ns="blue" pkg="robotiq_2f_gripper_control" type="robotiq_2f_action_client_example.py" 
+    <!-- <node ns="blue" pkg="robotiq_2f_gripper_control" type="robotiq_2f_action_client_example.py" 
         name="robotiq_85_client" output="screen" if="$(arg run_test)">
         <param name="action_name" value="command_robotiq_action" />
-    </node>
+    </node> -->
 
 </launch>
