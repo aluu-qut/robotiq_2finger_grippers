@@ -173,9 +173,10 @@ class CommandGripperActionServer(object):
         if current_status.fault_status != 0 and not self._is_stalled:              
           self._is_stalled = True
           self._processing_goal = False 
+          msg = "!!! SOME GRIPPER FAULT !!!"
           rospy.logerr(msg)
           result.error_code = -6
-          result.error_string = "Gripper fault status (gFLT): " + current_status.fault_status
+          result.error_string = "Gripper fault status (gFLT): " + str(current_status.fault_status)
           self._joint_trajectory_action_server.set_aborted(result)
           return
         # Check if object was detected
