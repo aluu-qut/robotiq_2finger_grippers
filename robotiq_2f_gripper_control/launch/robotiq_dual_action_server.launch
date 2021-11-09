@@ -1,60 +1,42 @@
 <launch>
+<!-- 
+this launches robotiq_2f_action_server.py under two namespaces of /green and /blue 
+need to 
+
+@TODO: bind serial device comport to specific grippers
+
+-->
+
     <arg name="sim" default="false"/>
     <arg name="green_gripper_comport" default="/dev/ttyACM0" unless="$(arg sim)"/>
     <arg name="blue_gripper_comport" default="/dev/ttyACM2" unless="$(arg sim)"/>
-    <arg name="green_gripper_stroke" default="0.085"/>
-    <arg name="blue_gripper_stroke" default="0.085"/>
+    <arg name="gripper_stroke" default="0.085"/>
+    <arg name="baud_rate" default="115200"/>
     <arg name="rate" default="50"/>
-    <arg name="run_test" default="true"/>
-	        
-     <!-- Launch action server for gripper -->
-     <group ns="green">
+
+    <!-- Launch action server for gripper -->
+    <group ns="green">
         <include file="$(find robotiq_2f_gripper_control)/launch/robotiq_action_server.launch">
             <arg name="comport" value="$(arg green_gripper_comport)" unless="$(arg sim)"/>
-            <arg name="stroke" value="$(arg green_gripper_stroke)"/>
+            <arg name="stroke" value="$(arg gripper_stroke)"/>
             <arg name="joint_name" value="green_finger_joint"/>
             <arg name="verbose" value="true"/>
             <arg name="sim" value="$(arg sim)"/>
             <arg name="rate" value="$(arg rate)"/>
-            <arg name="baud" value="115200"/>   
+            <arg name="baud" value="$(arg baud_rate)"/>
         </include>
-
-        <!-- <param name="robot_description" command="$(find xacro)/xacro $(find robotiq_2f_85_gripper_visualization)/urdf/robotiq_arg2f_85_model.xacro" /> 
-
-        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
-            <param name="robot_description" value="robot_description"/>
-            <param name="publish_frequency" type="double" value="100.0" />
-        </node> -->
     </group>
 
-
-    <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" > -->
-        <!-- <param name="robot_description" value="/black/robot_description"/> -->
-        <!-- <param name="publish_frequency" type="double" value="100.0" /> -->
-    <!-- </node> -->
-
-    <!-- RIGHT GRIPPER CLIENT -->
-    <!-- <node ns="green" pkg="robotiq_2f_gripper_control" type="robotiq_2f_action_client_example.py" 
-        name="robotiq_85_client" output="screen" if="$(arg run_test)">
-        <param name="action_name" value="command_robotiq_action" />
-    </node> -->
-
-     <!-- Launch action server for gripper -->
-     <group ns="blue">
-    <include file="$(find robotiq_2f_gripper_control)/launch/robotiq_action_server.launch">
-        <arg name="comport" value="$(arg blue_gripper_comport)" unless="$(arg sim)"/>
-        <arg name="stroke" value="$(arg blue_gripper_stroke)"/>
-        <arg name="joint_name" value="blue_finger_joint"/>
-        <arg name="verbose" value="true"/>
-        <arg name="sim" value="$(arg sim)"/>
-        <arg name="rate" value="$(arg rate)"/>
-        <arg name="baud" value="115200"/>w
-    </include>
-
-    <!-- LEFT GRIPPER CLIENT -->
-    <!-- <node ns="blue" pkg="robotiq_2f_gripper_control" type="robotiq_2f_action_client_example.py" 
-        name="robotiq_85_client" output="screen" if="$(arg run_test)">
-        <param name="action_name" value="command_robotiq_action" />
-    </node> -->
-</group>
+    <!-- Launch action server for gripper -->
+    <group ns="blue">
+        <include file="$(find robotiq_2f_gripper_control)/launch/robotiq_action_server.launch">
+            <arg name="comport" value="$(arg blue_gripper_comport)" unless="$(arg sim)"/>
+            <arg name="stroke" value="$(arg gripper_stroke)"/>
+            <arg name="joint_name" value="blue_finger_joint"/>
+            <arg name="verbose" value="true"/>
+            <arg name="sim" value="$(arg sim)"/>
+            <arg name="rate" value="$(arg rate)"/>
+            <arg name="baud" value="$(arg baud_rate)"/>
+        </include>
+    </group>
 </launch>
